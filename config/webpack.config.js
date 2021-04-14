@@ -26,6 +26,7 @@ const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
 const ForkTsCheckerWebpackPlugin = require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const ChromeExtensionReloader = require("webpack-chrome-extension-reloader");
 
 const postcssNormalize = require("postcss-normalize");
 
@@ -570,6 +571,7 @@ module.exports = function (webpackEnv) {
             : undefined
         )
       ),
+
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       // https://github.com/facebook/create-react-app/issues/5358
@@ -668,6 +670,7 @@ module.exports = function (webpackEnv) {
           // See https://github.com/cra-template/pwa/issues/13#issuecomment-722667270
           maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         }),
+
       // TypeScript type checking
       useTypeScript &&
         new ForkTsCheckerWebpackPlugin({
@@ -722,6 +725,21 @@ module.exports = function (webpackEnv) {
                 "react/react-in-jsx-scope": "error",
               }),
             },
+          },
+        }),
+      isEnvDevelopment &&
+        new ChromeExtensionReloader({
+          reloadPage: true, // Force the reload of the page also
+          entries: {
+            // The entries used for the content/background scripts
+            contentScript: [
+              "src/content.js",
+              "/static/js/0.chunk.js",
+              "/static/js/5.chunk.js",
+              "/static/js/content.chunk.js",
+              "/static/js/runtime-content.js",
+            ],
+            background: "src/background.js", // *REQUIRED
           },
         }),
     ].filter(Boolean),

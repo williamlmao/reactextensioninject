@@ -147,5 +147,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "webpack-extension-reloader": "^1.1.4"
   }
 }
