@@ -8,7 +8,7 @@ The exact changes I made were:
 
 1. Included this in manifest
 
-````"content_security_policy": "script-src 'self' 'sha256-NAAKFqXxfjI1LgmKrrc3nxKe0WeY4/Lkue3yXruT4OE=' 'sha256-UtdLJkZdXQ6adZtYaJY8FbnmuNwWtFQ7lkWJX2iMz8E='; object-src 'self'",
+```"content_security_policy": "script-src 'self' 'sha256-NAAKFqXxfjI1LgmKrrc3nxKe0WeY4/Lkue3yXruT4OE=' 'sha256-UtdLJkZdXQ6adZtYaJY8FbnmuNwWtFQ7lkWJX2iMz8E='; object-src 'self'",
   "content_scripts": [
     {
       "matches": [
@@ -27,10 +27,12 @@ The exact changes I made were:
       ],
       "run_at": "document_end"
     }
-  ],```
+  ],
+```
 
 2. Updated `entry` on line 172 of `webpack.config.js` to:
-````
+
+```
 
 entry: {
 main:
@@ -55,4 +57,3 @@ From there, I was able to inject the content script. However, the tutorial says 
 I suspect it may have to do with something in `webpack.config.js`.
 
 Ultimately, I would like the contentscript and normal extension popup to be the same component. Please let me know if you see what I am doing wrong here! Thanks.
-```
